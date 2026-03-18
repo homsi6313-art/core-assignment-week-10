@@ -53,7 +53,17 @@ const getHello = async () => {
  * Response: { user: string }
  */
 const getMe = async () => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/users/me`, {
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to get me: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 // ============================================================================
@@ -89,7 +99,19 @@ const createUser = async (name, password) => {
  * Response: { user: string, token: string }
  */
 const loginUser = async (name, password) => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/users/login`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ name, password }),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to login: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 // ============================================================================
@@ -103,7 +125,20 @@ const loginUser = async (name, password) => {
  * Response: { id: number, text: string, user: string }
  */
 const createPost = async (text) => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/posts`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({ text }),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to create post: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 /**
@@ -112,7 +147,17 @@ const createPost = async (text) => {
  * Response: Array of { id, text, user }
  */
 const getPosts = async () => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/posts/me`, {
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to get posts: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 /**
@@ -122,7 +167,20 @@ const getPosts = async () => {
  * Response: { id: number, text: string }
  */
 const updatePost = async (id, text) => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/posts/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${getToken()}`,
+    },
+    body: JSON.stringify({ text }),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to update post: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 /**
@@ -131,7 +189,18 @@ const updatePost = async (id, text) => {
  * Response: { user: string, message: string }
  */
 const deleteUser = async () => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/users/me`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to delete user: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 /**
@@ -140,7 +209,18 @@ const deleteUser = async () => {
  * Response: { id: number, text: string, message: string }
  */
 const deletePost = async (id) => {
-  // TODO
+  const response = await fetch(`${BASE_URL}/posts/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Authorization': `Bearer ${getToken()}`,
+    },
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Failed to delete post: HTTP ${response.status} ${response.statusText}`
+    );
+  }
+  return await response.json();
 };
 
 // ============================================================================
